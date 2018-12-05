@@ -1083,8 +1083,8 @@ func sendMessage(_ message: HOPESChatMessage, to chatRoom: HOPESChatRoom) {
 
 // NOT PREFERRED
 func sendMessage() {
-    let message = self.message
-    let chatRoom = self.chatRoom
+    let messageToBeSent = self.message
+    let activeChatRoom = self.chatRoom
     /* ... */
 } 
 ```
