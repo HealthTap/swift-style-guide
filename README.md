@@ -1044,3 +1044,47 @@ class Pirate {
 
 }
 ```
+
+## 5. Architecture
+
+The purpose of this section is to provide some loose guidelines on architecture-level coding practices to increase consistency across our app and improve testability. 
+
+### 5.1 Dependency Injection
+
+Two common forms of dependency injection you’re encouraged to use are constructor injection and method injection.
+
+* **5.1.1** Use constructor injection to explicitly declare dependencies at the time a class is initialized.
+
+```swift
+// PREFERRED
+class SNRConsultRoomViewController {
+    init(chatSession: HOPESChatSession) {
+        self.chatSession = chatSession
+        /* ... */
+    }
+}
+
+// NOT PREFERRED
+class SNRConsultRoomViewController {
+    init() {
+        self.chatSession = HOPESChatSession.shared
+        /* ... */
+    }
+}
+```
+
+* **5.1.2** Use method injection to explicitly declare dependencies that vary with each call. 
+
+```swift
+// PREFERRED
+func sendMessage(_ message: HOPESChatMessage, to chatRoom: HOPESChatRoom) {
+    /* ... */
+}
+
+// NOT PREFERRED
+func sendMessage() {
+    let message = self.message
+    let chatRoom = self.chatRoom
+    /* ... */
+} 
+```
