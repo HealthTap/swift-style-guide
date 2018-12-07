@@ -26,6 +26,9 @@ This guide was last updated for Swift 4.0 on February 14, 2018.
     - [4. Documentation/Comments](#4-documentationcomments)
         - [4.1 Documentation](#41-documentation)
         - [4.2 Other Commenting Guidelines](#42-other-commenting-guidelines)
+    - [5. Architecture](#5-architecture)
+        - [5.1 Dependency Injection](#51-dependency-injection)
+        - [5.2 Asynchronous Code](#52-asynchronous-code)
 
 ## 1. Code Formatting
 
@@ -1087,4 +1090,25 @@ func sendMessage() {
     let activeChatRoom = self.chatRoom
     /* ... */
 } 
+```
+
+### 5.2 Asynchronous Code
+
+* **5.2.1** Choose promises over callbacks. A `Promise` represents the future value of an asynchronous task. Adopting promises simplifies asynchronous programming by allowing developers to keep reference to asynchronous operations, eliminates the varied callback styles, and encourages developers to handle errors. Please checkout [PromiseKit](https://github.com/mxcl/PromiseKit) for more information.
+
+```swift
+// PREFERRED
+func login() -> Promise<HOPESPatient> {
+    /* ... */
+}
+
+// NOT PREFERRED
+func login(completion: ((HOPESPatient?, Error?) -> Void)?) {
+    /* ... */
+}
+
+// NOT PREFERRED
+func login(success: ((HOPESPatient)->Void)?, failure: ((Error)->Void)?) {
+    /* ... */
+}
 ```
